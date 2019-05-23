@@ -1,7 +1,8 @@
-from flask import Flask, render_template, jsonify, request, redirect, url_for
-from f5_manager import F5Manager
-from flask_restful import Resource, Api, reqparse
 import requests as r
+from flask import Flask, jsonify, redirect, render_template, request, url_for
+from flask_restful import Api, Resource, reqparse
+
+from f5_manager import F5Manager
 
 app = Flask(__name__)
 api = Api(app)
