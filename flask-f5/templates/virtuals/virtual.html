@@ -1,0 +1,55 @@
+{% extends "home.html" %} {% block content %} {% if virtual is defined %}
+<h3>Virtual server {{ virtual.name }}</h3>
+<form action="/virtuals/{{ virtual.partition }}/{{ virtual.name }}" method="POST">
+{% else %}
+<h3>New virtual server</h3>
+<form action="/virtuals/create" method="POST">
+{% endif %}
+<table id="virtuals_table">
+  <tr>
+    <th>Name</th>
+    <th>Partition</th>
+    <th>Description</th>
+    <th>Source</th>
+    <th>Destination</th>
+  </tr>
+  <tr>
+    {% if virtual is defined %}
+    <td>
+      <input type="text" name="name" value="{{ virtual.name }}" readonly disabled />
+    </td>
+    <td>
+      <input type="text" name="partition" value="{{ virtual.partition }}" readonly disabled />
+    </td>
+    <td>
+      <input type="text" name="description" value="{{ virtual.description }}" />
+    </td>
+    <td>
+      <input type="text" name="source" value="{{ virtual.source }}" />
+    </td>
+    <td>
+      <input type="text" name="destination" value="{{ virtual.destination }}" />
+    </td>
+    {% else %}
+    <td>
+      <input type="text" name="name" value="" />
+    </td>
+    <td>
+      <input type="text" name="partition" value="Common" />
+    </td>
+    <td>
+      <input type="text" name="description" value="" />
+    </td>
+    <td>
+      <input type="text" name="source" value="" placeholder="0.0.0.0/0" />
+    </td>
+    <td>
+      <input type="text" name="destination" value="" placeholder="192.168.1.1:80" />
+    </td>
+    {% endif %}
+  </tr>
+</table>
+<br>
+<input type="submit" value="Save">
+</form>
+{% endblock %}

@@ -19,4 +19,6 @@ vagrant init boeboe/F5-BIGIP
 vagrant up
 ```
 
-Un fois la machine démarrée, on peut accéder à son interface web via [https://localhost:10443/xui/](https://localhost:10443/xui/). Les credentials par défaut pour se connecter sont **vagrant/vagrant**
+Un fois la machine démarrée, on peut accéder à son interface web via <https://localhost:10443/xui/>. Les credentials par défaut pour se connecter sont **vagrant/vagrant**
+
+# Application

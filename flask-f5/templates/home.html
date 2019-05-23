@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>F5 manager</title>
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 80%;
+        text-align: center;
+      }
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+      hr {
+        display: block;
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+        margin-left: auto;
+        margin-right: auto;
+        border-style: inset;
+        border-width: 2px;
+      }
+      input {
+        display: inline-block;
+      }
+    </style>
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <div>
+      <h1>F5 manager</h1>
+      {% if connected %}
+      <h2>BigIP is connected</h2>
+      {% else %}
+      <h2>BigIP not connected</h2>
+      {% endif %}
+      <nav>
+        {% block navigation %}
+        <a href="/virtuals">Virtual servers</a>
+        {% endblock %}
+      </nav>
+    </div>
+    <hr />
+    <div id="content">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

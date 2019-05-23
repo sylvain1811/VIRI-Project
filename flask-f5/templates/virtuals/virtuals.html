@@ -1,0 +1,29 @@
+{% extends "home.html" %} {% block content %}
+<h3>Virtual servers</h3>
+<p><a href="/virtuals/create">Create new virtual server</a></p>
+<table id="virtuals_table">
+  <tr>
+    <th>Name</th>
+    <th>Partition</th>
+    <th>Description</th>
+    <th>Source</th>
+    <th>Destination</th>
+    <th>Enabled</th>
+  </tr>
+  {% for item in virtuals %}
+  <tr>
+    <td>
+      <a href="/virtuals/{{ item.partition }}/{{ item.name }}">
+        {{ item.name }}
+      </a>
+    </td>
+    <td>{{ item.partition }}</td>
+    <td>{{ item.description }}</td>
+    <td>{{ item.source }}</td>
+    <td>{{ item.destination }}</td>
+    <td>{{ item.enabled }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
