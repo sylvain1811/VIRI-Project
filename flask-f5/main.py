@@ -25,7 +25,7 @@ class Virtual(Resource):
             "partition": v.raw["partition"],
             "enabled": True if "enabled" in v.raw else False,
             "source": v.raw["source"],
-            "destination": v.raw["destination"],
+            "destination": v.raw["destination"].split("/")[-1],
             "description": v.raw["description"] if "description" in v.raw else "",
         }
         return jsonify(data)
@@ -55,7 +55,7 @@ class VirtualList(Resource):
                     "partition": v.raw["partition"],
                     "enabled": True if "enabled" in v.raw else False,
                     "source": v.raw["source"],
-                    "destination": v.raw["destination"],
+                    "destination": v.raw["destination"].split("/")[-1],
                     "description": v.raw["description"]
                     if "description" in v.raw
                     else "",
@@ -89,9 +89,16 @@ def virtual_servers_list():
 @app.route("/virtuals/<string:partition>/<string:name>", methods=["GET", "POST"])
 def virtual_server(name, partition):
     if request.method == "POST":
-        r.put(
-            f"http://localhost:5000/api/virtuals/{partition}/{name}", data=request.form
-        )
+        if "action" in request.form and request.form["action"] == "delete":
+            r.delete(f"http://localhost:5000/api/virtuals/{partition}/{name}")
+        else:
+            r.put(
+                f"http://localhost:5000/api/virtuals/{partition}/{name}",
+                data=request.form,
+            )
+        return redirect(url_for("virtual_servers_list"))
+    if request.method == "DELETE":
+        r.delete(f"http://localhost:5000/api/virtuals/{partition}/{name}")
         return redirect(url_for("virtual_servers_list"))
     result = r.get(f"http://localhost:5000/api/virtuals/{partition}/{name}")
     return render_template(
@@ -104,9 +111,7 @@ def virtual_server_create():
     if request.method == "POST":
         r.post(f"http://localhost:5000/api/virtuals", data=request.form)
         return redirect(url_for("virtual_servers_list"))
-    return render_template(
-        "virtuals/virtual.html", connected=f5man.is_connected()
-    )
+    return render_template("virtuals/virtual.html", connected=f5man.is_connected())
 
 
 if __name__ == "__main__":

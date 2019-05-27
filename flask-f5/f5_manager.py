@@ -33,7 +33,9 @@ class F5Manager:
         if "source" in kwargs:
             v.source = kwargs["source"]
         if "destination" in kwargs:
-            v.destination = kwargs["destination"]
+            part = kwargs["partition"]
+            dest = kwargs["destination"]
+            v.destination = f"/{part}/{dest}"
         if "description" in kwargs:
             v.description = kwargs["description"]
         v.update()
