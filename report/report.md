@@ -213,6 +213,8 @@ Le projet est plutôt un projet proof of concept, car plusieurs choses manquent.
   - Suppression
 - Site web utilisant l'API REST permettant de gérer les virtual server à partir d'un navigateur.
 
+Le code source du projet est accessible à l'adresse suivante : <https://github.com/sylvain1811/VIRI-Project>
+
 ## Améliorations possibles
 
 - Ajouter les paramètres manquants aux _Virtual servers_.
